@@ -84,6 +84,18 @@ export default function AdminDashboard() {
     router.push('/admin');
   }
 
+  async function handleCleanup() {
+    if (!confirm('This permanently deletes every handout (PDF + data) older than 5 days. Continue?')) return;
+    const res = await fetch('/api/cleanup');
+    const data = await res.json();
+    if (!res.ok) {
+      alert(data.error ?? 'Cleanup failed.');
+      return;
+    }
+    alert(`Deleted ${data.deleted} handout(s) older than 5 days.`);
+    load(tab);
+  }
+
   if (checkingAuth) return null;
 
   return (
@@ -92,9 +104,14 @@ export default function AdminDashboard() {
       <section className="mx-auto max-w-5xl px-6 py-10">
         <div className="flex items-center justify-between mb-8">
           <h1 className="font-display text-3xl text-sumi">Review queue</h1>
-          <button onClick={handleSignOut} className="text-sm text-sumiSoft underline underline-offset-4">
-            Sign out
-          </button>
+          <div className="flex items-center gap-4">
+            <button onClick={handleCleanup} className="text-sm text-shu underline underline-offset-4">
+              Delete old handouts now
+            </button>
+            <button onClick={handleSignOut} className="text-sm text-sumiSoft underline underline-offset-4">
+              Sign out
+            </button>
+          </div>
         </div>
 
         <div className="flex gap-1 border-b border-sumi/10 mb-6">
