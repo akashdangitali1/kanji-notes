@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --tw-grid-line: rgba(33, 31, 29, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #F7F4EC;
+  color: #211F1D;
+}
+
+/* The signature element: a genkouyoushi (原稿用紙) manuscript-paper cell,
+   the grid every Japanese student writes kanji into. Used for kanji cards
+   so the interface itself looks like a study sheet, not a generic app. */
+.kanji-cell {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--tw-grid-line);
+  background-image:
+    linear-gradient(to right, var(--tw-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--tw-grid-line) 1px, transparent 1px);
+  background-size: 50% 50%;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-paper {
+  background-image:
+    linear-gradient(to right, var(--tw-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--tw-grid-line) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+::selection {
+  background: #1F3A5F;
+  color: #F7F4EC;
+}
+
+:focus-visible {
+  outline: 2px solid #1F3A5F;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
